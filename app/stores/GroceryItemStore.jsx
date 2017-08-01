@@ -16,6 +16,7 @@ function GroceryItemStore() {
     function addGroceryItem(item) {
         items.push(item);
         triggerListeners();
+        // server stuff
         helper.post("api/items", item);
         // validations would go here
     }
@@ -28,6 +29,8 @@ function GroceryItemStore() {
         })
         items.splice(index, 1);
         triggerListeners();
+        // server stuff
+        helper.remove('api/items/' + item._id)
     }
     function setGroceryItemBought(item, isBought) {
         var _item = items.filter(function (a) {
@@ -35,6 +38,8 @@ function GroceryItemStore() {
         })[0];
         item.purchased = isBought || false;
         triggerListeners();
+        // server stuff
+        helper.patch('api/items/' + item._id, item)
     }
     function onChange(listener) {
         listeners.push(listener)
